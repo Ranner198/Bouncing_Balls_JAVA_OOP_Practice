@@ -12,6 +12,7 @@ class Ball {
   
   int size;
   
+  public boolean death = true;
   public int currLife;
 
   color Color = color(int(random(0, 256)), int(random(0, 256)), int(random(0, 256)));
@@ -21,8 +22,9 @@ class Ball {
     this.location = new PVector(random(0, height), random(0, width));  
     this.speed = new PVector (random(-2, 2), random(-2, 2));
   }
-  Ball(int size, float speed) {
+  Ball(int size, float speed, boolean death) {
     this.size = size;
+    this.death = death;
     this.location = new PVector(random(this.size, height-this.size), random(this.size, width-this.size));   
     this.speed = new PVector (random(-speed, speed), random(-speed, speed));  
   }
@@ -38,7 +40,8 @@ class Ball {
   }
   
   void Update(boolean gravity) {
-    currLife++;
+    if (death)
+      currLife++;
     _frameRate = 30;
     //Update Current Location 
     location = buildPVector();
